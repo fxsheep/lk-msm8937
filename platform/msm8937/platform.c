@@ -70,7 +70,7 @@ void platform_init(void) {
 }
 
 void platform_early_init(void) {
-//    writel(0,MSM_IOMAP_BASE_VIRT + 0x4ab000);
+    struct list_node list = LIST_INITIAL_VALUE(list);
 
     //platform_clock_init();
 
@@ -81,5 +81,7 @@ void platform_early_init(void) {
 
     pmm_add_arena(&arena);
 
-    // TODO: Reserve memory regions if needed
+    /* reserve memory occupied by TrustZone, etc. */
+
+    pmm_alloc_range(0x85b00000, 0xd00000 / PAGE_SIZE, &list);
 }
