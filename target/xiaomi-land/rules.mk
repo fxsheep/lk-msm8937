@@ -1,8 +1,10 @@
 LOCAL_DIR := $(GET_LOCAL_DIR)
 
-GLOBAL_INCLUDES += \
-    $(LOCAL_DIR)/include
+MODULE := $(LOCAL_DIR)
 
 PLATFORM := msm8937
 
-#include make/module.mk
+MODULE_SRCS := \
+	$(LOCAL_DIR)/init.c
+
+include make/module.mk

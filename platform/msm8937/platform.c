@@ -51,15 +51,13 @@ static pmm_arena_t arena = {
 
 #define DEBUG_UART 0
 
-void platform_dputc(char c)
-{
+void platform_dputc(char c) {
     if (c == '\n')
         uart_putc(DEBUG_UART, '\r');
     uart_putc(DEBUG_UART, c);
 }
 
-int platform_dgetc(char *c, bool wait)
-{
+int platform_dgetc(char *c, bool wait) {
     int ret = uart_getc(DEBUG_UART, wait);
     if (ret == -1)
         return -1;
@@ -67,17 +65,13 @@ int platform_dgetc(char *c, bool wait)
     return 0;
 }
 
-void platform_init(void)
-{
-    uart_init();
-
+void platform_init(void) {
 }
 
-void platform_early_init(void)
-{
+void platform_early_init(void) {
 //    writel(0,MSM_IOMAP_BASE_VIRT + 0x4ab000);
-//    while(1);
-    uart_init_early();
+
+    //platform_clock_init();
 
     /* initialize the interrupt controller */
     arm_gic_init();

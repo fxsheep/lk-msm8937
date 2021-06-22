@@ -10,7 +10,7 @@ MODULE_DEPS += \
 
 MODULE_SRCS += \
 	$(LOCAL_DIR)/platform.c \
-	$(LOCAL_DIR)/uart.c \
+	$(LOCAL_DIR)/uart_dm.c \
 
 ARCH := arm64
 ARM_CPU := cortex-a53
