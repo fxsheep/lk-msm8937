@@ -12,3 +12,4 @@ tagit
 blk.bin
 *.dSYM
 scripts/toolpaths.local
+make.sh
