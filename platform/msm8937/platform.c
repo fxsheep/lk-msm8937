@@ -76,7 +76,7 @@ void platform_early_init(void) {
     /* initialize the interrupt controller */
     arm_gic_init();
 
-    arm_generic_timer_init(30, 0);
+    arm_generic_timer_init(289, 0);
 
     pmm_add_arena(&arena);
 
