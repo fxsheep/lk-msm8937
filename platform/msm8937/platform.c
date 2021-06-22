@@ -15,6 +15,7 @@
 #include <dev/interrupt/arm_gic.h>
 #include <dev/timer/arm_generic.h>
 #include <platform/iomap.h>
+#include <platform/irqs.h>
 #include <dev/uart.h>
 
 typedef struct arm64_iframe_long arm_platform_iframe_t;
@@ -76,7 +77,7 @@ void platform_early_init(void) {
     /* initialize the interrupt controller */
     arm_gic_init();
 
-    arm_generic_timer_init(289, 0);
+    arm_generic_timer_init(INT_QTMR_NON_SECURE_PHY_TIMER_EXP, 0);
 
     pmm_add_arena(&arena);
 
