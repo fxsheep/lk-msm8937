@@ -20,6 +20,8 @@
 
 typedef struct arm64_iframe_long arm_platform_iframe_t;
 
+extern int smc_call(ulong arg0, ulong arg1, ulong arg2, ulong arg3);
+
 /* initial memory mappings. parsed by start.S */
 struct mmu_initial_mapping mmu_initial_mappings[] = {
     {
@@ -84,4 +86,17 @@ void platform_early_init(void) {
     /* reserve memory occupied by TrustZone, etc. */
 
     pmm_alloc_range(0x85b00000, 0xd00000 / PAGE_SIZE, &list);
+
+#if WITH_SMP
+    /* boot the secondary cpus using the Power State Coordintion Interface */
+    ulong psci_call_num = 0x84000000 + 0x40000000 + 3; /* SMC64 CPU_ON */
+
+    for (int cpuid = 1; cpuid < SMP_MAX_CPUS; cpuid++) {
+        /* note: assumes cpuids are numbered like MPIDR 0:0:0:N */
+        int ret = smc_call(psci_call_num, cpuid, MEMBASE + KERNEL_LOAD_OFFSET, cpuid);
+        if (ret != 0) {
+            printf("ERROR: psci CPU_ON returns %d\n", ret);
+        }
+    }
+#endif
 }

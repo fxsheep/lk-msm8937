@@ -2,6 +2,9 @@ LOCAL_DIR := $(GET_LOCAL_DIR)
 
 MODULE := $(LOCAL_DIR)
 
+WITH_SMP ?= 1
+SMP_MAX_CPUS ?= 8
+
 MODULE_DEPS += \
     lib/cbuf \
     lib/fdt \
@@ -11,6 +14,7 @@ MODULE_DEPS += \
 MODULE_SRCS += \
 	$(LOCAL_DIR)/platform.c \
 	$(LOCAL_DIR)/uart_dm.c \
+    $(LOCAL_DIR)/smc.S \
 
 ARCH := arm64
 ARM_CPU := cortex-a53
